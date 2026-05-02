@@ -1,0 +1,5 @@
+CREATE TABLE IF NOT EXISTS tokens(
+    id SERIAL UNIQUE PRIMARY KEY NOT NULL,
+    user_id INTEGER,
+    token TEXT
+)
