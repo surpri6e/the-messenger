@@ -3,7 +3,7 @@ export interface IUser {
   email: string;
   password: string;
   username: string;
-  theme: "purple" | "dark_purple";
+  theme: "purple1" | "purple2" | "purple3";
   info: string;
   avatar_link: string;
   created_at: string;

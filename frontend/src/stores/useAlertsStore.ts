@@ -1,10 +1,12 @@
 import { create } from "zustand";
+import { createJSONStorage, persist } from "zustand/middleware";
 
 interface IUseAlertsStoreActions {
   addErrorAlert: (message: string) => void;
   addSuccessAlert: (message: string) => void;
 
   deleteAlert: (id: number) => void;
+  deleteAllAlerts: () => void;
 }
 
 type TAlertType = "success" | "error";
@@ -21,41 +23,55 @@ interface IUseAlertsStore {
   actions: IUseAlertsStoreActions;
 }
 
-export const useAlertsStore = create<IUseAlertsStore>((set) => ({
-  alerts: [],
+export const useAlertsStore = create<IUseAlertsStore>()(
+  persist(
+    (set) => ({
+      alerts: [],
 
-  actions: {
-    addErrorAlert: (message: string) =>
-      set((state) => {
-        if (state.alerts.length < 4) {
-          return {
-            alerts: [
-              ...state.alerts,
-              { type: "error", id: Date.now(), message },
-            ],
-          };
-        }
+      actions: {
+        addErrorAlert: (message: string) =>
+          set((state) => {
+            if (state.alerts.length < 4) {
+              return {
+                alerts: [
+                  ...state.alerts,
+                  { type: "error", id: Date.now(), message },
+                ],
+              };
+            }
 
-        return state;
-      }),
+            return state;
+          }),
 
-    addSuccessAlert: (message: string) =>
-      set((state) => {
-        if (state.alerts.length < 4) {
-          return {
-            alerts: [
-              ...state.alerts,
-              { type: "success", id: Date.now(), message },
-            ],
-          };
-        }
+        addSuccessAlert: (message: string) =>
+          set((state) => {
+            if (state.alerts.length < 4) {
+              return {
+                alerts: [
+                  ...state.alerts,
+                  { type: "success", id: Date.now(), message },
+                ],
+              };
+            }
 
-        return state;
-      }),
+            return state;
+          }),
 
-    deleteAlert: (id: number) =>
-      set((state) => ({
-        alerts: [...state.alerts.filter((alert) => alert.id !== id)],
-      })),
-  },
-}));
+        deleteAlert: (id: number) =>
+          set((state) => ({
+            alerts: [...state.alerts.filter((alert) => alert.id !== id)],
+          })),
+
+        deleteAllAlerts: () =>
+          set(() => ({
+            alerts: [],
+          })),
+      },
+    }),
+    {
+      name: "alerts",
+      storage: createJSONStorage(() => sessionStorage),
+      partialize: (state) => ({ alerts: state.alerts }),
+    },
+  ),
+);

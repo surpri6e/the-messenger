@@ -1,17 +1,21 @@
 import { type FC } from "react";
 import styles from "./SidebarButton.module.scss";
+import { Link } from "react-router-dom";
 
 interface ISidebarButton {
   href: string;
   iconSrc: string;
+  isActive: boolean;
 }
 
-// CHANGE | alt
-const SidebarButton: FC<ISidebarButton> = ({ href, iconSrc }) => {
+const SidebarButton: FC<ISidebarButton> = ({ href, iconSrc, isActive }) => {
   return (
-    <a href={href} className={styles.btn}>
-      <img src={iconSrc} className={styles.img} alt="The sidebar icon" />
-    </a>
+    <Link
+      to={href}
+      className={`${styles.button} ${isActive ? styles.activeButton : ""}`}
+    >
+      <img src={iconSrc} className={styles.img} alt="Иконка боковой панели" />
+    </Link>
   );
 };
 

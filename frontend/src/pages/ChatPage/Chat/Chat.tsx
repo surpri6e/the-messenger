@@ -8,7 +8,7 @@ import microphone from "@images/microphone.png";
 
 import call from "@images/call.png";
 import settings from "@images/settigns.png";
-import { useRequest } from "@hooks/useRequest";
+// import { useRequest } from "@hooks/useRequest";
 
 interface IMessage {}
 
@@ -60,7 +60,7 @@ const Chat = () => {
 
         <div className={styles.messages}>
           {new Array(100).fill(0).map((elem, ind) => (
-            <div>{ind + 1}</div>
+            <div key={Date.now() + ind}>{ind + 1}</div>
           ))}
         </div>
 

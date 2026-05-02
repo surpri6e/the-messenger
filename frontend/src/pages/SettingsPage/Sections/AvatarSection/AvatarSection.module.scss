@@ -1,0 +1,83 @@
+@use "@styles/mixins.scss";
+@use "@styles/vars.scss";
+
+.avatarSection {
+  height: 100%;
+  width: 30%;
+}
+
+.avatarSectionBody {
+  @include mixins.flexCenter;
+  flex-direction: column;
+
+  height: 100%;
+}
+
+.avatarBody {
+  height: 180px;
+  width: 180px;
+
+  @include mixins.flexCenter;
+
+  border-radius: 50%;
+  @include mixins.bordered;
+
+  background-color: var(--light-color);
+
+  transition: vars.$transition filter;
+
+  margin-bottom: 30px;
+
+  position: relative;
+
+  &:hover {
+    filter: grayscale(0.5);
+  }
+
+  .avatar {
+    width: 100%;
+    height: 100%;
+
+    border-radius: 50%;
+  }
+
+  .basicAvatar {
+    width: 100px;
+    height: 100px;
+  }
+
+  .cameraBody {
+    position: absolute;
+
+    width: 40px;
+    height: 40px;
+
+    border-radius: 50%;
+    @include mixins.bordered;
+
+    background-color: var(--main-color);
+
+    right: 5px;
+    bottom: 5px;
+
+    @include mixins.flexCenter;
+
+    & > img {
+      width: 27px;
+    }
+  }
+
+  & > input {
+    display: none;
+  }
+}
+
+.avatarBodyError {
+  border: 2px solid vars.$error;
+}
+
+.isOnline {
+  @include mixins.flexibleText(16px, 14px);
+  text-align: center;
+  color: var(--second-color);
+}

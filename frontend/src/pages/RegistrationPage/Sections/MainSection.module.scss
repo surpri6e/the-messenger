@@ -44,7 +44,7 @@
   @include mixins.flexibleText(16px, 14px);
 
   & > button {
-    color: functions.darken(var(--neutral-color-2), 25);
+    color: functions.darken(var(--neutral-color-2), 60);
 
     &:hover {
       text-decoration: underline;

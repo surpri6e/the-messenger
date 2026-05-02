@@ -8,30 +8,21 @@ $transition: 150ms ease-in;
 
 // Colors
 
-$darkPurple: #3e4083;
-$purple: #9698fb;
-$blue: #e2f6fa;
-
 $error: #f44336;
 $success: #43a047;
 
-// Themes
-
 :root {
-  // --purple-theme-main-color: $darkPurple;
-  // --purple-theme-second-color: $purple;
+  --default-theme-main-color: #3e4083;
+  --default-theme-second-color: #9698fb;
+  --default-theme-light-color: #fff;
+  --default-theme-dark-color: #000;
+  --default-theme-neutral-color-1: #d9d9d9;
+  --default-theme-neutral-color-2: #e2f6fa;
 
-  --purple-theme-main-color: #3e4083;
-  --purple-theme-second-color: #9698fb;
-  --purple-theme-light-color: #fff;
-  --purple-theme-dark-color: #000;
-  --purple-theme-neutral-color-1: #d9d9d9;
-  --purple-theme-neutral-color-2: #64b7e0;
-
-  --main-color: var(--purple-theme-main-color);
-  --second-color: var(--purple-theme-second-color);
-  --light-color: var(--purple-theme-light-color);
-  --dark-color: var(--purple-theme-dark-color);
-  --neutral-color-1: var(--purple-theme-neutral-color-1);
-  --neutral-color-2: var(--purple-theme-neutral-color-2);
+  --main-color: var(--default-theme-main-color);
+  --second-color: var(--default-theme-second-color);
+  --light-color: var(--default-theme-light-color);
+  --dark-color: var(--default-theme-dark-color);
+  --neutral-color-1: var(--default-theme-neutral-color-1);
+  --neutral-color-2: var(--default-theme-neutral-color-2);
 }

@@ -73,7 +73,7 @@
   right: 3px;
   bottom: 3px;
 
-  background-color: vars.$purple;
+  background-color: var(--second-color);
   border: 2px solid #000;
   border-radius: 50%;
 
@@ -91,7 +91,7 @@
   }
 
   & > p {
-    color: vars.$darkPurple;
+    color: var(--main-color);
     margin-left: 5px;
   }
 }
@@ -126,7 +126,7 @@
   height: 60px;
   width: 60px;
   border-radius: 50%;
-  background-color: vars.$darkPurple;
+  background-color: var(--main-color);
 
   & > img {
     height: 35px;
@@ -136,7 +136,7 @@
   transition: all 150ms linear;
 
   &:hover {
-    background-color: color.adjust(vars.$darkPurple, $lightness: 15%);
+    // background-color: color.adjust(var(--main-color), $lightness: 15%);
   }
 }
 

@@ -1,40 +1,26 @@
-@use "../../../utils/styles/vars";
-@use "sass:color";
+@use "@styles/vars.scss";
+@use "@styles/mixins.scss";
+@use "@styles/functions.scss";
 
-.btn {
-  background-color: vars.$blue;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.button {
+  @include mixins.flexCenter;
+  background-color: var(--neutral-color-2);
+
   width: 70px;
-  padding: 2px 0px;
-  border-radius: 15px;
-  height: 28px;
+  height: 34px;
 
-  position: relative;
+  border-radius: vars.$borderRadius;
+  transition: 250ms ease-in background-color;
 
-  overflow: hidden;
-
-  // transition: all 150ms linear;
-
-  &:before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-
-    transition: all 150ms linear;
-
-    border-radius: inherit;
-
-    background-color: color.adjust(vars.$blue, $lightness: -15%);
-
-    height: 28px;
-    width: 0%;
+  &:hover {
+    background-color: functions.darken(var(--neutral-color-2), 15);
   }
+}
 
-  &:hover:before {
-    width: 100%;
+.activeButton {
+  background-color: functions.darken(var(--neutral-color-2), 45);
+  &:hover {
+    background-color: functions.darken(var(--neutral-color-2), 45);
   }
 }
 

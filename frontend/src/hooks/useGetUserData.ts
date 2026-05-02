@@ -20,7 +20,10 @@ export const useGetUserData = (): IUseGetUserData => {
     const getUserDataResponse = await AuthApi.getUserData();
 
     if (getUserDataResponse.status === 200) {
-      alertsActions.addSuccessAlert(getUserDataResponse.message);
+      if (!isWithoutAlerts) {
+        alertsActions.addSuccessAlert(getUserDataResponse.message);
+      }
+
       userActions.setUser(getUserDataResponse.body!);
     } else {
       if (!isWithoutAlerts) {

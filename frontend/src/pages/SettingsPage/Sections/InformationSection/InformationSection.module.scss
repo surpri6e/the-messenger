@@ -1,0 +1,18 @@
+@use "@styles/mixins.scss";
+@use "@styles/vars.scss";
+
+.informationSection {
+  height: 100%;
+  width: 40%;
+
+  @include mixins.flexCenter;
+}
+
+.informationSectionBody {
+  height: 85%;
+  width: 75%;
+
+  border-radius: vars.$borderRadius;
+  @include mixins.bordered(1px);
+  background-color: var(--neutral-color-1);
+}
