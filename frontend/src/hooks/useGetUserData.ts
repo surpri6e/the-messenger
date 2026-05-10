@@ -24,7 +24,7 @@ export const useGetUserData = (): IUseGetUserData => {
         alertsActions.addSuccessAlert(getUserDataResponse.message);
       }
 
-      userActions.setUser(getUserDataResponse.body!);
+      userActions.setUser(getUserDataResponse.body);
     } else {
       if (!isWithoutAlerts) {
         alertsActions.addErrorAlert(getUserDataResponse.message);

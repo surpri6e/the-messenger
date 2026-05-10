@@ -1,0 +1,56 @@
+@use "@styles/vars.scss";
+@use "@styles/mixins.scss";
+
+.panel {
+  height: 100%;
+  width: 30%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  margin-right: 25px;
+}
+
+.top {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  height: 15%;
+  width: 100%;
+}
+
+.notFound {
+  text-align: center;
+
+  @include mixins.flexibleText(24px, 20px);
+
+  font-weight: 500;
+}
+
+.error {
+  text-align: center;
+
+  @include mixins.flexibleText(24px, 20px);
+
+  font-weight: 500;
+  color: vars.$error;
+}
+
+.list {
+  background-color: var(--light-color);
+
+  height: 80%;
+
+  border-radius: vars.$borderRadius;
+  @include mixins.bordered;
+
+  padding: 20px;
+
+  & > *:not(:last-child) {
+    margin-bottom: 10px;
+  }
+
+  overflow-y: auto;
+}

@@ -11,6 +11,10 @@
   flex-direction: column;
 
   height: 100%;
+
+  & > div > h2 {
+    text-align: center;
+  }
 }
 
 .avatarBody {

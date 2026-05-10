@@ -76,6 +76,8 @@
 
   padding: 0 8px;
 
+  outline: none;
+
   &:focus {
     @include mixins.bordered(3px);
 

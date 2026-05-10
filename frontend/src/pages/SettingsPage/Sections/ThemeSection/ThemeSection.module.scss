@@ -60,36 +60,3 @@
 
   cursor: pointer;
 }
-
-.button {
-  @include mixins.flexCenter;
-
-  background-color: vars.$success;
-
-  border-radius: vars.$borderRadius;
-
-  @include mixins.bordered(1px);
-
-  height: 60px;
-  width: 100%;
-
-  color: var(--light-color);
-
-  font-weight: 500;
-
-  @include mixins.flexibleText(18px, 16px);
-
-  transition: vars.$transition background-color;
-
-  &:hover {
-    background-color: functions.darken(vars.$success, 10);
-  }
-}
-
-.buttonDisabled {
-  cursor: default;
-
-  &:hover {
-    background-color: vars.$success;
-  }
-}

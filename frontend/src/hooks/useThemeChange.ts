@@ -1,32 +1,38 @@
+import { UsersApi } from "@api/usersApi";
+import type { IUser } from "@appTypes/IUser";
 import { useAlertsStore } from "@stores/useAlertsStore";
+import { useUserStore } from "@stores/useUserStore";
 import { useState } from "react";
 
 interface IUseThemeChange {
   isLoading: boolean;
 
-  fn: (themeName: string) => Promise<boolean>;
+  fn: (theme: string) => Promise<boolean>;
 }
 
 export const useThemeChange = (): IUseThemeChange => {
   const { actions: alertsActions } = useAlertsStore((state) => state);
+  const { user, actions: userActions } = useUserStore((state) => state);
 
   const [isLoading, setIsLoading] = useState(false);
 
-  async function fn(themeName: string): Promise<boolean> {
+  async function fn(theme: string): Promise<boolean> {
     setIsLoading(true);
 
-    // const setAuthResponse = await AuthApi.setAuthToken(email, password);
+    const changeInformationResponse = await UsersApi.changeInformation(
+      user!.username,
+      user!.info,
+      theme,
+    );
 
-    // if (setAuthResponse.status !== 200) {
-    //   alertsActions.addErrorAlert(setAuthResponse.message);
-    //   setIsLoading(false);
-    //   return false;
-    // }
-
-    const delay = (ms: number) =>
-      new Promise((resolve) => setTimeout(resolve, ms));
-
-    await delay(2000);
+    if (changeInformationResponse.status === 200) {
+      userActions.setUser({ ...user, theme } as IUser);
+      alertsActions.addSuccessAlert(changeInformationResponse.message);
+    } else {
+      alertsActions.addErrorAlert(changeInformationResponse.message);
+      setIsLoading(false);
+      return false;
+    }
 
     setIsLoading(false);
 

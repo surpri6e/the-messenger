@@ -1,44 +1,58 @@
+@use "@styles/vars.scss";
+@use "@styles/mixins.scss";
+@use "@styles/functions.scss";
+
 .search {
   display: flex;
 }
 
 .input {
   height: 70px;
-  width: 77%;
+  width: calc(100% - 90px);
 
   outline: none;
 
   padding: 0 10px;
 
-  font-size: 18px;
+  @include mixins.flexibleText(18px, 16px);
 
-  border-top-right-radius: 10px;
-  border-bottom-right-radius: 10px;
+  border-top-right-radius: vars.$borderRadius;
+  border-bottom-right-radius: vars.$borderRadius;
 
-  border: 2px solid #000;
+  @include mixins.bordered;
 
-  background-color: #fff;
+  background-color: var(--light-color);
+
+  &:focus {
+    @include mixins.bordered(3px);
+  }
 }
 
 .button {
   height: 70px;
-  width: 23%;
-  background-color: #fff;
+  width: 90px;
 
-  border: 2px solid #000;
+  background-color: var(--light-color);
+
+  @include mixins.bordered;
+
   border-right: none;
-
-  border-top-left-radius: 10px;
-  border-bottom-left-radius: 10px;
+  border-top-left-radius: vars.$borderRadius;
+  border-bottom-left-radius: vars.$borderRadius;
 
   & > img {
     height: 32px;
     width: 32px;
   }
 
-  transition: all 150ms linear;
+  transition: vars.$transition background-color;
 
   &:hover {
-    // background-color: vars.$gray;
+    background-color: functions.darken(var(--light-color), 10);
   }
+}
+
+.disabledButton {
+  cursor: default;
+  background-color: functions.darken(var(--light-color), 8);
 }

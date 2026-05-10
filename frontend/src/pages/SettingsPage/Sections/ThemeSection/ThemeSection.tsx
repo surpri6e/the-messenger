@@ -3,7 +3,7 @@ import styles from "./ThemeSection.module.scss";
 import { PURPLE1_THEME, PURPLE2_THEME, PURPLE3_THEME } from "@constants/themes";
 import { setTheme } from "@functionals/setTheme";
 import type { IUser } from "@appTypes/IUser";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useThemeChange } from "@hooks/useThemeChange";
 import Loader from "@components/Loader/Loader";
 
@@ -17,6 +17,10 @@ const ThemeSection = () => {
       await changeTheme(themeName);
     }
   };
+
+  useEffect(() => {
+    onClick();
+  }, [themeName]);
 
   return (
     <section className={styles.themeSection}>
@@ -57,14 +61,6 @@ const ThemeSection = () => {
             </>
           )}
         </div>
-
-        <button
-          className={`${styles.button} ${isLoading ? styles.buttonDisabled : ""}`}
-          onClick={onClick}
-          disabled={isLoading ? true : false}
-        >
-          Сохранить
-        </button>
       </div>
     </section>
   );

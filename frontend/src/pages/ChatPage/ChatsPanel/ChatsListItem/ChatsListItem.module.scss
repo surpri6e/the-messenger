@@ -1,8 +1,7 @@
-@use "../../../../utils/styles/vars.scss";
-@use "sass:color";
+@use "@styles/vars.scss";
 
 .item {
-  // background-color: vars.$gray;
+  background-color: var(--neutral-color-1);
 
   height: 70px;
   width: 100%;

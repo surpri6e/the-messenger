@@ -2,6 +2,9 @@ import { useAlertsStore } from "@stores/useAlertsStore";
 import { useState } from "react";
 import { useErrorDelay } from "./useErrorDelay";
 import { formatBytesToBytes } from "bytes-transform";
+import { UsersApi } from "@api/usersApi";
+import { useUserStore } from "@stores/useUserStore";
+import type { IUser } from "@appTypes/IUser";
 
 interface IUseAvatarChange {
   avatarError: boolean;
@@ -13,6 +16,7 @@ interface IUseAvatarChange {
 
 export const useAvatarChange = (): IUseAvatarChange => {
   const { actions: alertsActions } = useAlertsStore((state) => state);
+  const { user, actions: userActions } = useUserStore((state) => state);
 
   const [avatarError, setAvatarError] = useErrorDelay(1000);
 
@@ -44,18 +48,16 @@ export const useAvatarChange = (): IUseAvatarChange => {
 
     setIsLoading(true);
 
-    // const setAuthResponse = await AuthApi.setAuthToken(email, password);
+    const changeAvatarResponse = await UsersApi.changeAvatar(file);
 
-    // if (setAuthResponse.status !== 200) {
-    //   alertsActions.addErrorAlert(setAuthResponse.message);
-    //   setIsLoading(false);
-    //   return false;
-    // }
-
-    const delay = (ms: number) =>
-      new Promise((resolve) => setTimeout(resolve, ms));
-
-    await delay(2000);
+    if (changeAvatarResponse.status === 200) {
+      userActions.setUser({ ...user, ...changeAvatarResponse.body } as IUser);
+      alertsActions.addSuccessAlert(changeAvatarResponse.message);
+    } else {
+      alertsActions.addErrorAlert(changeAvatarResponse.message);
+      setIsLoading(false);
+      return false;
+    }
 
     setIsLoading(false);
 

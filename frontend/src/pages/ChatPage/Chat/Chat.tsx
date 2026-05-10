@@ -8,6 +8,7 @@ import microphone from "@images/microphone.png";
 
 import call from "@images/call.png";
 import settings from "@images/settigns.png";
+import { useCurrentCommunicationStore } from "@stores/useCurrentCommunication";
 // import { useRequest } from "@hooks/useRequest";
 
 interface IMessage {}
@@ -26,12 +27,17 @@ const Chat = () => {
   // );
   let messages;
 
+  const { currentCommunication } = useCurrentCommunicationStore(
+    (state) => state,
+  );
+
   console.log(messages);
 
   return (
     <div className={styles.chat}>
       <div className={styles.chatBody}>
-        <div className={styles.header}>
+        {currentCommunication.type === "chat" ? <div>ухйхуйхуй</div> : <></>}
+        {/* <div className={styles.header}>
           <div className={styles.headerLeft}>
             <div className={styles.avatarBody}>
               <img
@@ -90,7 +96,7 @@ const Chat = () => {
               <img src={arrow} alt="arrow" className={styles.invert} />
             </button>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );

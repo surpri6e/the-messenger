@@ -42,3 +42,34 @@ export const SET_AUTH_TOKEN_ERROR_MESSAGES: IAllErrorMessages = {
   "400": "Неверный пароль от аккаунта",
   "404": "Пользователь с такой почтой еще не зарегистрирован",
 } as const;
+
+export const EXIT_FROM_ACCOUNT_ERROR_MESSAGES: IAllErrorMessages = {
+  ...STANDART_UNAUTHORIZED_ERROR_MESSAGES,
+  ...STANDART_SERVER_ERROR_MESSAGE,
+  "404": "Такого пользователя не существует",
+} as const;
+export const CHANGE_AVATAR_ERROR_MESSAGES: IAllErrorMessages = {
+  ...STANDART_UNAUTHORIZED_ERROR_MESSAGES,
+  ...STANDART_SERVER_ERROR_MESSAGE,
+};
+export const CHANGE_INFORMATION_ERROR_MESSAGES: IAllErrorMessages = {
+  ...STANDART_UNAUTHORIZED_ERROR_MESSAGES,
+  ...STANDART_SERVER_ERROR_MESSAGE,
+  "404": "Такого пользователя не существует",
+} as const;
+export const GET_ONE_USER_ERROR_MESSAGES: IAllErrorMessages = {
+  ...STANDART_UNAUTHORIZED_ERROR_MESSAGES,
+  ...STANDART_SERVER_ERROR_MESSAGE,
+  "404": "Такого пользователя не существует",
+} as const;
+
+export const SEARCH_USER_ERROR_MESSAGES: IAllErrorMessages = {
+  ...STANDART_UNAUTHORIZED_ERROR_MESSAGES,
+  ...STANDART_SERVER_ERROR_MESSAGE,
+};
+
+export const GET_CHATS_AND_GROUPS_LIST_ERROR_MESSAGES: IAllErrorMessages = {
+  ...STANDART_UNAUTHORIZED_ERROR_MESSAGES,
+  ...STANDART_SERVER_ERROR_MESSAGE,
+  "404": "Пользователя с таким айди не существует",
+} as const;

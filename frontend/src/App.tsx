@@ -16,8 +16,6 @@ import { PURPLE1_THEME, PURPLE2_THEME, PURPLE3_THEME } from "@constants/themes";
 
 // Нужно будет куку из таблицы удалять
 // Протестить как ведет себя api, когда кончается срок токена но ты в онлайне
-// changeAvatar server-request
-// changeTheme server-request
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
