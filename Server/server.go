@@ -3,6 +3,10 @@ package main
 import (
 	"log"
 	"net/http"
+	chats "server/chats"
+	checker "server/database/users"
+	groups "server/groups"
+	list "server/list"
 	messages "server/messages"
 	users "server/users"
 	"time"
@@ -21,20 +25,47 @@ type Pole struct {
 }
 
 func main() {
+	checker.CheckerOnline()
+	// Users
 	mux := http.NewServeMux()
-	//	mux.HandleFunc("/api/health", checkHealth)
 	mux.HandleFunc("/registration", users.Register)
 	mux.HandleFunc("/auth", users.DistributionMethod)
+	mux.HandleFunc("GET /search/{username}", users.SearchUser)
+	mux.HandleFunc("POST /mailcode/{email}", users.SendMail)
+	mux.HandleFunc("PUT /mailcode", users.MailChangePass)
+	mux.HandleFunc("GET /users/{user_id}", users.GetUserDataById)
+	mux.HandleFunc("PUT /users", users.ChangeUserData)
+	mux.HandleFunc("POST /users/exit", users.ExitFromAccount)
+	mux.HandleFunc("PUT /users/online", users.ChangeIsOnline)
+	mux.HandleFunc("POST /users/avatarlink", users.UploadAvatar)
+	// Messages
 	mux.HandleFunc("/messages", messages.PostMessage)
 	mux.HandleFunc("GET /messages/{message_id}", messages.GetMessage)
 	mux.HandleFunc("PUT /messages/{message_id}", messages.PutMessage)
+	mux.HandleFunc("DELETE /messages/{message_id}", messages.DeleteMessage)
+	mux.HandleFunc("GET /checkmessage/{message_id}", messages.GetNewMessages)
 
-	// Оборачиваем весь маршрутизатор в CORS
-	handler := enableCORSForMux(mux) //BE2681D73EB0903771C9B2DCC76FCFC04768FF7F
+	// Chats
+	mux.HandleFunc("/chats", chats.CreateChat)
+	mux.HandleFunc("GET /chats/{chat_id}", chats.GetChatData)
+	mux.HandleFunc("DELETE /chats/{chat_id}", chats.DeleteChat)
+	// Groups
+	mux.HandleFunc("POST /groups", groups.CreateGroup)
+	mux.HandleFunc("PUT /groups/admins/{group_id}", groups.ChangeAdminsId)
+	mux.HandleFunc("PUT /groups/users/{group_id}", groups.ChangeUsersId)
+	mux.HandleFunc("PUT /groups/enemies/{group_id}", groups.ChangeEnemiesId)
+	mux.HandleFunc("PUT /groups/data/{group_id}", groups.ChangeNameInfoGroup)
+	mux.HandleFunc("GET /groups/{group_id}", groups.GetGroup)
+	// Lists
+	mux.HandleFunc("GET /list/chats/user/{user_id}", list.GetUserChatsById)
+	mux.HandleFunc("GET /list/{user_id}/groups", list.GetUserGroupsById)
+	mux.HandleFunc("GET /list/communication/chat/{chat_id}", messages.GetMessageChatId)
+
+	handler := enableCORSForMux(mux)
 	handler = LoggingMiddleware(handler)
 
 	log.Print("Listening on port 8080")
-	err := http.ListenAndServeTLS("26.132.220.182:8080", "cert.pem", "key.pem", handler)
+	err := http.ListenAndServeTLS("26.171.27.118:8080", "cert.pem", "key.pem", handler)
 
 	if err != nil {
 		log.Fatal(err)
@@ -63,101 +94,3 @@ func LoggingMiddleware(next http.Handler) http.Handler {
 		next.ServeHTTP(w, r)
 	})
 }
-
-// func DistributionMethod(w http.ResponseWriter, r *http.Request) {
-// 	switch r.Method {
-// 	case http.MethodGet:
-// 		getMessage(w, r)
-// 	case http.MethodPost:
-// 		postMessage(w, r)
-// 	}
-// }
-
-// func postMessage(w http.ResponseWriter, r *http.Request) {
-// 	message := make(map[string]interface{})
-// 	err := json.NewDecoder(r.Body).Decode(&message)
-// 	if err != nil {
-// 		http.Error(w, err.Error(), http.StatusBadRequest)
-// 		return
-// 	}
-// 	sender_id := message["Sender_id"].(float64)
-// 	user_id := message["User_id"].(float64)
-// 	chat_id := message["Chat_id"].(float64)
-// 	text := message["Text"].(string)
-// 	err = main2.InputMessage(sender_id, user_id, chat_id, text)
-// 	if err == nil {
-// 		fmt.Fprintf(w, "OK")
-// 	}
-// 	ResponseWriter()
-// }
-
-// func getMessages(w http.ResponseWriter, r *http.Request) {
-// 	query := r.URL.Query()
-// 	chat_id := query.Get("chat_id")
-// 	// err := json.NewDecoder(r.Body).Decode(&us_ch_id)
-// 	// if err != nil {
-// 	// 	http.Error(w, err.Error(), http.StatusBadRequest)
-// 	// 	return
-// 	// }
-// 	id, err := strconv.Atoi(chat_id)
-// 	result, err := json.Marshal(main2.GetMessages(float64(id)))
-// 	if err != nil {
-// 		log.Fatal(err)
-// 	}
-// 	fmt.Fprintf(w, "%s", result)
-// }
-
-// func getMessage(w http.ResponseWriter, r *http.Request) {
-// 	us_ch_id := make(map[string]interface{})
-// 	err := json.NewDecoder(r.Body).Decode(&us_ch_id)
-// 	if err != nil {
-// 		http.Error(w, err.Error(), http.StatusBadRequest)
-// 		return
-// 	}
-// 	res, err := database.GetMessage(us_ch_id["Sender_id"].(float64), us_ch_id["User_id"].(float64))
-// 	if err != nil {
-// 		fmt.Fprintf(w, "No message in row")
-// 		return
-// 	}
-// 	result, err := json.Marshal(res)
-// 	fmt.Fprintf(w, "%s", result)
-// }
-
-// func register(w http.ResponseWriter, r *http.Request) {
-// 	person := make(map[string]interface{})
-// 	err := json.NewDecoder(r.Body).Decode(&person)
-// 	if err != nil {
-// 		http.Error(w, err.Error(), http.StatusBadRequest)
-// 		return
-// 	}
-// 	email := person["Email"].(string)
-// 	password := person["Password"].(string)
-// 	result := main2.InputInBasePerson(email, password)
-// 	if result == true {
-// 		fmt.Fprintf(w, "%d", 200)
-// 	} else {
-// 		fmt.Fprintf(w, "%d", 400)
-// 	}
-// }
-
-// func login(w http.ResponseWriter, r *http.Request) {
-// 	person := make(map[string]interface{})
-// 	err := json.NewDecoder(r.Body).Decode(&person)
-// 	if err != nil {
-// 		http.Error(w, err.Error(), http.StatusBadRequest)
-// 		return
-// 	}
-// 	email := person["Email"].(string)
-// 	password := person["Password"].(string)
-// 	result := main2.CheckLogin(email, password)
-// 	if result == true {
-// 		fmt.Fprintf(w, "%d", 200)
-// 	} else {
-// 		fmt.Fprintf(w, "%d", 400)
-// 	}
-// }
-
-// // Check the server status
-// func checkHealth(w http.ResponseWriter, r *http.Request) {
-// 	fmt.Fprintf(w, "OK")
-// }
