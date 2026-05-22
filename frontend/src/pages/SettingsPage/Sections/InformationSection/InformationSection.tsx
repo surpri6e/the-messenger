@@ -3,9 +3,11 @@ import styles from "./InformationSection.module.scss";
 import { useState } from "react";
 import { useExitFromAccount } from "@hooks/useExitFromAccount";
 import { useInformationChange } from "@hooks/useInformationChange";
+import { useCurrentChatStore } from "@stores/useCurrentChat";
 
 const InformationSection = () => {
   const { user } = useUserStore((state) => state);
+  const { actions: currentChatActions } = useCurrentChatStore((state) => state);
 
   const { fn: exitFromAccount } = useExitFromAccount();
   const {
@@ -20,6 +22,7 @@ const InformationSection = () => {
 
   const onExitFromAccout = async () => {
     await exitFromAccount();
+    currentChatActions.setCurrentChat(null);
     location.reload();
   };
 

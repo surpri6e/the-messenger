@@ -3,7 +3,7 @@ import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 
 interface IUseCurrentChatStoreActions {
-  setCurrentChat: (chat: IChat) => void;
+  setCurrentChat: (chat: IChat | null) => void;
 }
 
 interface IUseCurrentChatStore {
@@ -18,7 +18,8 @@ export const useCurrentChatStore = create<IUseCurrentChatStore>()(
       currentChat: null,
 
       actions: {
-        setCurrentChat: (chat: IChat) => set(() => ({ currentChat: chat })),
+        setCurrentChat: (chat: IChat | null) =>
+          set(() => ({ currentChat: chat })),
       },
     }),
 

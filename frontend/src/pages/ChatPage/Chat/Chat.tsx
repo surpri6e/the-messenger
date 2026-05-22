@@ -15,7 +15,7 @@ const Chat = () => {
           <>
             <ChatHeader />
 
-            <ChatMessages />
+            {currentChat.id === -1 ? <></> : <ChatMessages />}
 
             <ChatSender />
           </>
