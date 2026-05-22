@@ -10,6 +10,8 @@ import { useEffect, useState } from "react";
 import Loader from "@components/Loader/Loader";
 import { setTheme } from "@functionals/setTheme";
 import { PURPLE1_THEME, PURPLE2_THEME, PURPLE3_THEME } from "@constants/themes";
+import axios from "axios";
+import { USERS_ENDPOINT } from "@constants/endpoints";
 
 // cd C:\Program Files\Google\Chrome\Application
 // chrome.exe --ignore-certificate-errors
@@ -29,6 +31,28 @@ function App() {
       setIsLoading(false);
     })();
   }, []);
+
+  useEffect(() => {
+    const setIsOnline = async () => {
+      try {
+        await axios.put(
+          USERS_ENDPOINT + "/online",
+          {},
+          { withCredentials: true },
+        );
+      } catch (error) {
+        console.error("Ошибка:", error);
+      }
+    };
+
+    if (user && !user.is_admin) {
+      setIsOnline();
+
+      const interval = setInterval(setIsOnline, 2222);
+
+      return () => clearInterval(interval);
+    }
+  }, [user]);
 
   if (isLoading) {
     return <Loader />;

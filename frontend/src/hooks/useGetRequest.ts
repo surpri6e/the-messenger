@@ -9,7 +9,7 @@ export function useGetRequest<T>(
   str: string,
   errorMessages: IAllErrorMessages,
   deps?: React.DependencyList,
-  cond?: boolean,
+  cycle?: number,
 ): [T | null, boolean, boolean] {
   const { actions: alertActions } = useAlertsStore((state) => state);
   const [data, setData] = useState<T | null>(null);
@@ -18,17 +18,15 @@ export function useGetRequest<T>(
 
   useEffect(
     () => {
-      if (cond || cond == undefined) {
+      setIsLoading(true);
+
+      const fn = async () => {
         try {
-          setIsLoading(true);
+          const response = await axios.get<IResponse<T>>(str, {
+            withCredentials: true,
+          });
 
-          (async () => {
-            const response = await axios.get<IResponse<T>>(str, {
-              withCredentials: true,
-            });
-
-            setData(response.data.body);
-          })();
+          setData(response.data.body);
         } catch (error) {
           const errorResponse = catchError(error, errorMessages);
 
@@ -38,6 +36,14 @@ export function useGetRequest<T>(
         } finally {
           setIsLoading(false);
         }
+      };
+
+      if (cycle) {
+        const interval = setInterval(fn, cycle);
+
+        return () => clearInterval(interval);
+      } else {
+        (async () => await fn())();
       }
     },
     deps ? deps : [],

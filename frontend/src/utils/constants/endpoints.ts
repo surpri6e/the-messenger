@@ -9,3 +9,7 @@ export const USERS_ENDPOINT = BASIC_URL + "users";
 export const SEARCH_ENDPOINT = BASIC_URL + "search";
 
 export const LIST_ENDPOINT = BASIC_URL + "list";
+
+export const MESSAGES_ENDPOINT = BASIC_URL + "messages";
+
+export const CHATS_ENDPOINT = BASIC_URL + "chats";

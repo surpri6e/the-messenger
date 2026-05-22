@@ -68,8 +68,18 @@ export const SEARCH_USER_ERROR_MESSAGES: IAllErrorMessages = {
   ...STANDART_SERVER_ERROR_MESSAGE,
 };
 
-export const GET_CHATS_AND_GROUPS_LIST_ERROR_MESSAGES: IAllErrorMessages = {
+export const GET_MESSAGES_LIST_ERROR_MESSAGES: IAllErrorMessages = {
   ...STANDART_UNAUTHORIZED_ERROR_MESSAGES,
   ...STANDART_SERVER_ERROR_MESSAGE,
-  "404": "Пользователя с таким айди не существует",
+  "404": "Чата с таким айди нет",
 } as const;
+
+export const SEND_MESSAGE_ERROR_MESSAGES: IAllErrorMessages = {
+  ...STANDART_UNAUTHORIZED_ERROR_MESSAGES,
+  ...STANDART_SERVER_ERROR_MESSAGE,
+};
+
+export const CREATE_CHAT_ERROR_MESSAGES: IAllErrorMessages = {
+  ...STANDART_UNAUTHORIZED_ERROR_MESSAGES,
+  ...STANDART_SERVER_ERROR_MESSAGE,
+};

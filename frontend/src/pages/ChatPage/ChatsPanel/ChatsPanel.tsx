@@ -1,53 +1,44 @@
 import styles from "./ChatsPanel.module.scss";
 import ChatsListItem from "./ChatsListItem/ChatsListItem";
 import HeaderText from "@components/HeaderText/HeaderText";
-import Search from "@components/Search/Search";
 import { useGetRequest } from "@hooks/useGetRequest";
 import { LIST_ENDPOINT } from "@constants/endpoints";
-import { useUserStore } from "@stores/useUserStore";
-import { GET_CHATS_AND_GROUPS_LIST_ERROR_MESSAGES } from "@constants/apiErrors";
-import type { IChat, IGroup } from "@appTypes/ICommunication";
+import { GET_ONE_USER_ERROR_MESSAGES } from "@constants/apiErrors";
+import type { IChat } from "@appTypes/IChat";
 import Loader from "@components/Loader/Loader";
+import { useUserStore } from "@stores/useUserStore";
 
 const ChatsPanel = () => {
   const { user } = useUserStore((state) => state);
 
   // Если кто-то создаст со мной чат и напишет, то обновится ли список? deps?: [globalMessages]
   const [chats, isLoadingChats, isErrorChats] = useGetRequest<IChat[]>(
-    LIST_ENDPOINT + `/${user!.id}/chats`,
-    GET_CHATS_AND_GROUPS_LIST_ERROR_MESSAGES,
+    LIST_ENDPOINT + `/chats/user/${user?.id}`,
+    GET_ONE_USER_ERROR_MESSAGES, // ДРУГОЙ ТИП ОШИБКИ
+    [],
+    700,
   );
-
-  const [groups, isLoadingGroups, isErrorGroups] = useGetRequest<IGroup[]>(
-    LIST_ENDPOINT + `/${user!.id}/groups`,
-    GET_CHATS_AND_GROUPS_LIST_ERROR_MESSAGES,
-  );
-
-  console.log(chats, groups);
 
   return (
     <div className={styles.panel}>
       <div className={styles.top}>
         <HeaderText text="Чаты" />
-        <Search
+        {/* <Search
           placeholder="Поиск среди своих чатов"
           isLoading={false}
           fn={async () => true}
-        />
+        /> */}
       </div>
 
       <div className={styles.list}>
-        {isLoadingChats || isLoadingGroups ? (
-          <Loader />
-        ) : isErrorChats || isErrorGroups ? (
+        {isLoadingChats ? (
+          <div className={styles.loading}>
+            <Loader />
+          </div>
+        ) : isErrorChats ? (
           <p className={styles.error}>Произошла ошибка!</p>
-        ) : chats && chats.length !== 0 && groups && groups.length !== 0 ? (
-          [...chats!, ...groups!].map((communication) => (
-            <ChatsListItem
-              communication={communication}
-              key={communication.id}
-            />
-          ))
+        ) : chats && chats.length !== 0 ? (
+          [...chats!].map((chat) => <ChatsListItem chat={chat} key={chat.id} />)
         ) : (
           <p className={styles.notFound}>Ничего нет!</p>
         )}

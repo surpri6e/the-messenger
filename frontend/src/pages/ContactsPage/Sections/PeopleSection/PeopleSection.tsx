@@ -6,11 +6,15 @@ const PeopleSection = () => {
     <div className={styles.people}>
       <section className={styles.contactsSection}>
         <HeaderText text="Контакты" />
-        <div className={styles.list}></div>
+        <div className={styles.list}>
+          <div className={styles.center}>В БЭТЕ</div>
+        </div>
       </section>
       <section className={styles.enemiesSection}>
         <HeaderText text="Забаненные" />
-        <div className={styles.list}></div>
+        <div className={styles.list}>
+          <div className={styles.center}>В БЭТЕ</div>
+        </div>
       </section>
     </div>
   );

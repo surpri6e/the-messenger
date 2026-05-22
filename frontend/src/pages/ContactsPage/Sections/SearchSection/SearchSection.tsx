@@ -5,14 +5,12 @@ import { useSearchPeople } from "@hooks/useSearchPeople";
 import Loader from "@components/Loader/Loader";
 import basicAvatar from "@images/user.png";
 import { PRIVATE_ROUTE_CHATS } from "@constants/routes";
-import { useCurrentCommunicationStore } from "@stores/useCurrentCommunication";
+import { useCurrentChatStore } from "@stores/useCurrentChat";
 import { useUserStore } from "@stores/useUserStore";
 
 const SearchSection = () => {
   const { fn: searchUser, isLoading, searchedUsers } = useSearchPeople();
-  const { actions: currentCommunicationActions } = useCurrentCommunicationStore(
-    (state) => state,
-  );
+  const { actions: currentChatActions } = useCurrentChatStore((state) => state);
   const { user } = useUserStore((state) => state);
 
   const onOpenUserPage = () => {};
@@ -27,7 +25,7 @@ const SearchSection = () => {
   ) => {
     e.stopPropagation();
 
-    currentCommunicationActions.setCurrentChat({
+    currentChatActions.setCurrentChat({
       created_at: "",
       first_person_id: user!.id,
       second_person_id: secondPersonId,
