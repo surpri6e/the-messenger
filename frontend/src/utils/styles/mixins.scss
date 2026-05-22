@@ -1,0 +1,35 @@
+@use "@styles/vars.scss";
+
+@mixin flexCenter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin bordered($number: 2px) {
+  border: $number solid var(--dark-color);
+}
+
+@mixin flexibleText($computerSize, $mobileSize) {
+  $deltaSize: $computerSize - $mobileSize;
+
+  $deltaWidthSize: vars.$computerWidthSize - vars.$mobileWidthSize;
+
+  $delta: calc($deltaSize / $deltaWidthSize);
+
+  @if $computerSize == $mobileSize {
+    font-size: $computerSize;
+  } @else {
+    font-size: calc(
+      $delta * 100vw + ($mobileSize - $delta * vars.$mobileWidthSize)
+    );
+  }
+
+  @media (width > vars.$computerWidthSize) {
+    font-size: $computerSize;
+  }
+
+  @media (width < vars.$mobileWidthSize) {
+    font-size: $mobileSize;
+  }
+}

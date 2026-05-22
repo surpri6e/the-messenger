@@ -1,16 +1,16 @@
-@use "../../utils/styles/vars.scss";
-
 .sidebar {
   height: 100%;
-  width: 120px;
+  width: 114px;
 
-  background-color: vars.$purple;
+  background-color: var(--main-color);
 
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 
   padding: 10px;
+
+  border-right: 2px solid var(--dark-color);
 }
 
 .top {

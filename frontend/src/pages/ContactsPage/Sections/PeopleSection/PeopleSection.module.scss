@@ -1,0 +1,39 @@
+@use "@styles/vars.scss";
+@use "@styles/mixins.scss";
+
+.people {
+  width: 35%;
+
+  margin-right: 50px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  & > section {
+    & > h2 {
+      margin-bottom: 20px;
+    }
+
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.contactsSection {
+  height: 50%;
+}
+
+.enemiesSection {
+  height: 40%;
+}
+
+.list {
+  width: 100%;
+  height: 100%;
+
+  background-color: var(--light-color);
+  border-radius: vars.$borderRadius;
+
+  @include mixins.bordered;
+}

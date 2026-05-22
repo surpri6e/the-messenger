@@ -1,0 +1,62 @@
+@use "@styles/mixins.scss";
+@use "@styles/vars.scss";
+@use "@styles/functions.scss";
+
+.themeSection {
+  height: 100%;
+  width: 30%;
+
+  @include mixins.flexCenter;
+}
+
+.themeSectionBody {
+  height: 65%;
+  width: 75%;
+
+  border-radius: vars.$borderRadius;
+  @include mixins.bordered(1px);
+  background-color: var(--neutral-color-1);
+
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+  padding: 20px;
+}
+
+.themesLoaderBody {
+  width: 100%;
+  height: 100%;
+
+  @include mixins.flexCenter;
+}
+
+.themes {
+  width: 100%;
+  height: 100%;
+
+  background-color: functions.lighten(var(--neutral-color-1), 8);
+
+  border-radius: vars.$borderRadius;
+  @include mixins.bordered(1px);
+
+  margin: 10px 0;
+
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+
+  padding: 10px;
+}
+
+.theme {
+  width: 45px;
+  height: 45px;
+
+  border-radius: vars.$borderRadius;
+  @include mixins.bordered(1px);
+
+  margin: 5px;
+
+  cursor: pointer;
+}

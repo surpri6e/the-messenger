@@ -1,0 +1,58 @@
+@use "@styles/vars.scss";
+@use "@styles/mixins.scss";
+@use "@styles/functions.scss";
+
+.search {
+  display: flex;
+}
+
+.input {
+  height: 70px;
+  width: calc(100% - 90px);
+
+  outline: none;
+
+  padding: 0 10px;
+
+  @include mixins.flexibleText(18px, 16px);
+
+  border-top-right-radius: vars.$borderRadius;
+  border-bottom-right-radius: vars.$borderRadius;
+
+  @include mixins.bordered;
+
+  background-color: var(--light-color);
+
+  &:focus {
+    @include mixins.bordered(3px);
+  }
+}
+
+.button {
+  height: 70px;
+  width: 90px;
+
+  background-color: var(--light-color);
+
+  @include mixins.bordered;
+
+  border-right: none;
+  border-top-left-radius: vars.$borderRadius;
+  border-bottom-left-radius: vars.$borderRadius;
+
+  & > img {
+    height: 32px;
+    width: 32px;
+  }
+
+  transition: vars.$transition background-color;
+
+  &:hover {
+    background-color: functions.darken(var(--light-color), 10);
+  }
+}
+
+.disabledButton {
+  cursor: default;
+  background-color: functions.darken(var(--light-color), 8);
+}

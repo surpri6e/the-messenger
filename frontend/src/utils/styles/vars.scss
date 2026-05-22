@@ -1,2 +1,28 @@
-$purple: #1a1a2c;
-$blue: #e2f6fa;
+// Others
+
+$computerWidthSize: 1920px;
+$mobileWidthSize: 420px;
+
+$borderRadius: 15px;
+$transition: 150ms ease-in;
+
+// Colors
+
+$error: #f44336;
+$success: #43a047;
+
+:root {
+  --default-theme-main-color: #3e4083;
+  --default-theme-second-color: #9698fb;
+  --default-theme-light-color: #fff;
+  --default-theme-dark-color: #000;
+  --default-theme-neutral-color-1: #d9d9d9;
+  --default-theme-neutral-color-2: #e2f6fa;
+
+  --main-color: var(--default-theme-main-color);
+  --second-color: var(--default-theme-second-color);
+  --light-color: var(--default-theme-light-color);
+  --dark-color: var(--default-theme-dark-color);
+  --neutral-color-1: var(--default-theme-neutral-color-1);
+  --neutral-color-2: var(--default-theme-neutral-color-2);
+}

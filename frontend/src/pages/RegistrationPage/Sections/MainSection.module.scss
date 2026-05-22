@@ -1,0 +1,124 @@
+@use "@styles/mixins.scss";
+@use "@styles/vars.scss";
+@use "@styles/functions.scss";
+@use "sass:color";
+
+.body {
+  width: 550px;
+
+  padding: 20px 10px;
+  margin: 0px 15px;
+
+  border-radius: vars.$borderRadius;
+  @include mixins.bordered;
+
+  background-color: var(--light-color);
+
+  & > h1 {
+    @include mixins.flexibleText(30px, 26px);
+
+    text-align: center;
+
+    margin-bottom: 30px;
+  }
+}
+
+.isLoading {
+  @include mixins.flexCenter;
+}
+
+.inputs {
+  margin-bottom: 60px;
+  padding: 0 25px;
+
+  & > *:not(:last-child) {
+    margin-bottom: 15px;
+  }
+
+  @media (max-width: vars.$mobileWidthSize) {
+    margin-bottom: 30px;
+  }
+}
+
+.miniButtonBody {
+  @include mixins.flexibleText(16px, 14px);
+
+  & > button {
+    color: functions.darken(var(--neutral-color-2), 60);
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.inputBody {
+  display: flex;
+  flex-direction: column;
+
+  & > p:first-child {
+    margin-bottom: 5px;
+
+    @include mixins.flexibleText(18px, 16px);
+  }
+}
+
+.input {
+  @include mixins.flexibleText(16px, 14px);
+
+  border-radius: vars.$borderRadius;
+  @include mixins.bordered;
+
+  background-color: var(--neutral-color-1);
+
+  height: 50px;
+  width: 100%;
+
+  padding: 0 8px;
+
+  outline: none;
+
+  &:focus {
+    @include mixins.bordered(3px);
+
+    filter: brightness(0.85);
+  }
+}
+
+.errorInput {
+  border: 2px solid vars.$error;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  & > button {
+    background-color: var(--second-color);
+
+    height: 50px;
+    width: 70%;
+
+    @include mixins.flexCenter;
+
+    @include mixins.flexibleText(18px, 16px);
+
+    @include mixins.bordered;
+    border-radius: vars.$borderRadius;
+
+    font-weight: inherit;
+
+    margin-bottom: 10px;
+
+    transition: vars.$transition background-color;
+
+    &:hover {
+      background-color: functions.darken(var(--second-color), 7);
+    }
+
+    &:focus {
+      @include mixins.bordered(3px);
+    }
+  }
+}

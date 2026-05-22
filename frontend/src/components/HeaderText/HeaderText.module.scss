@@ -1,0 +1,11 @@
+@use "@styles/mixins.scss";
+
+.text {
+  @include mixins.flexibleText(32px, 28px);
+  color: var(--light-color);
+}
+
+.darkenText {
+  @include mixins.flexibleText(32px, 28px);
+  color: var(--dark-color);
+}

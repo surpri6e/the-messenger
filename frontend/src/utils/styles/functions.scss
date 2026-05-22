@@ -1,0 +1,7 @@
+@function darken($color, $number) {
+  @return hsl(from $color h s calc(l - $number));
+}
+
+@function lighten($color, $number) {
+  @return hsl(from $color h s calc(l + $number));
+}

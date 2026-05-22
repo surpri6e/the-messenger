@@ -1,0 +1,56 @@
+@use "@styles/vars.scss";
+
+.item {
+  background-color: var(--neutral-color-1);
+
+  height: 70px;
+  width: 100%;
+  border: 2px solid #000;
+  border-radius: 10px;
+
+  display: flex;
+  align-items: center;
+
+  cursor: pointer;
+
+  & > p {
+    font-weight: 500;
+  }
+
+  transition: all 150ms linear;
+
+  &:hover {
+    // background-color: color.adjust(vars.$gray, $lightness: 15%);
+  }
+}
+
+.avatarBody {
+  & > img {
+    height: 55px;
+    width: 55px;
+    border-radius: 50%;
+
+    border: 2px solid #000;
+
+    margin: 0 10px;
+  }
+
+  position: relative;
+}
+
+.online {
+  position: absolute;
+  right: 11px;
+  bottom: 7px;
+
+  border: 2px solid #000;
+
+  height: 10px;
+  width: 10px;
+  border-radius: 50%;
+  background-color: #484848;
+}
+
+.yesOnline {
+  background-color: var(--second-color);
+}

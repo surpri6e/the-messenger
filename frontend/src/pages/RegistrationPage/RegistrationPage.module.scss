@@ -1,0 +1,29 @@
+@use "@styles/mixins.scss";
+@use "@styles/vars.scss";
+
+.page {
+  height: 100vh;
+  width: 100vw;
+
+  position: relative;
+
+  overflow: hidden;
+
+  @include mixins.flexCenter;
+
+  & > img {
+    height: inherit;
+    width: inherit;
+
+    position: absolute;
+    left: 0;
+    top: 0;
+
+    z-index: -1;
+  }
+
+  @media (orientation: landscape) and (max-width: calc(vars.$computerWidthSize / 2)) {
+    height: 100vw;
+    width: 100vw;
+  }
+}

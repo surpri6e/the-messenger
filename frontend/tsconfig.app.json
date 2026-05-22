@@ -22,7 +22,20 @@
     "noUnusedParameters": true,
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true
+    "noUncheckedSideEffectImports": true,
+
+    "paths": {
+      "@components/*": ["./src/components/*"],
+      "@images/*": ["./src/utils/images/*"],
+      "@styles/*": ["./src/styles/*"],
+      "@appTypes/*": ["./src/utils/types/*"],
+      "@stores/*": ["./src/stores/*"],
+      "@pages/*": ["./src/pages/*"],
+      "@functionals/*": ["./src/utils/functionals/*"],
+      "@hooks/*": ["./src/hooks/*"],
+      "@api/*": ["./src/api/*"],
+      "@constants/*": ["./src/utils/constants/*"]
+    }
   },
   "include": ["src"]
 }

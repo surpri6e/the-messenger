@@ -1,0 +1,74 @@
+@use "@styles/vars.scss";
+@use "@styles/mixins.scss";
+
+.alerts {
+  position: absolute;
+  right: 50px;
+  bottom: 50px;
+
+  display: flex;
+  flex-direction: column;
+
+  & > *:not(:last-child) {
+    margin-bottom: 15px;
+  }
+}
+
+.alert {
+  padding: 15px;
+
+  width: 600px;
+
+  border-radius: vars.$borderRadius;
+
+  & > p {
+    @include mixins.flexibleText(16px, 14px);
+  }
+
+  transition: 300ms ease-in opacity;
+
+  @media (width < 700px) {
+    width: calc(100vw - 50px - 50px);
+  }
+}
+
+.alertRemoving {
+  opacity: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.alertError {
+  border: 1px solid vars.$error;
+  background-color: #ffebee;
+}
+
+.alertSuccess {
+  border: 1px solid vars.$success;
+  background-color: #e8f5e9;
+}
+
+.alertHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-bottom: 10px;
+
+  & > button > img {
+    height: 18px;
+    width: 18px;
+  }
+}
+
+.alertHeaderLeft {
+  display: flex;
+
+  & > *:not(:last-child) {
+    margin-right: 10px;
+  }
+
+  & > h4 {
+    @include mixins.flexibleText(18px, 16px);
+  }
+}

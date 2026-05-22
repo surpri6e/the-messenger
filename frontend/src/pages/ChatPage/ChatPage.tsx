@@ -1,12 +1,16 @@
-import Sidebar from "../../components/Sidebar/Sidebar";
 import styles from "./ChatPage.module.scss";
+import Chat from "./Chat/Chat";
+import ChatsPanel from "./ChatsPanel/ChatsPanel";
+import PrivatePageLayout from "@components/PrivatePageLayout/PrivatePageLayout";
 
 const ChatPage = () => {
   return (
-    <main className={styles.chatPage}>
-      <Sidebar />
-      <div className={styles.body}></div>
-    </main>
+    <PrivatePageLayout>
+      <div className={styles.wrapper}>
+        <ChatsPanel />
+        <Chat />
+      </div>
+    </PrivatePageLayout>
   );
 };
 
